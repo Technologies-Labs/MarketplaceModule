@@ -8,20 +8,13 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 class Service extends Model
 {
-    use HasFactory;
-    use SoftDeletes;
+    use HasFactory, SoftDeletes;
 
-    protected $fillable = ['name','is_active'];
+    protected $guarded = [];
 
+    public function subscriptions()
+    {
+        return $this->hasMany(Subscription::class);
+    }
 
- /////////// Relationships  ////////////////
-  public function subscriptions()
- {
-     return $this->hasMany(Subscription::class);
- }
-
-    // protected static function newFactory()
-    // {
-    //     return \Modules\MarketplaceModule\Database\factories\ServiceFactory::new();
-    // }
 }

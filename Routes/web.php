@@ -12,17 +12,21 @@
 */
 
 use Illuminate\Support\Facades\Route;
+use Modules\MarketplaceModule\Http\Controllers\ServiceController;
+use Modules\MarketplaceModule\Http\Livewire\Services\AllServices;
 
 
-/////////////////      Services          ////////////////////////
-Route::prefix('services')->group(function() {
-
-    Route::get('/activation/{id}','ServiceController@activate');
-    Route::get('/','ServiceController@index');
-
+/**
+ * Dashboard Route
+ */
+Route::middleware(['auth'])->group(function () {
+    Route::prefix('admin')->group(function() {
+        Route::prefix('services')->group(function() {
+            Route::get('/activation/{id}','ServiceController@activate');
+            Route::get('/','ServiceController@index');
+        });
+    });
 });
-
-/////////////////      SMS Services          ////////////////////////
 Route::resource('smsServices','SmsServiceController');
 Route::prefix('smsServices')->group(function() {
 
@@ -30,8 +34,19 @@ Route::prefix('smsServices')->group(function() {
 
 });
 
-/////////////////      Subscriptons         ////////////////////////
 Route::resource('subscriptions','SubscriptionController');
 Route::prefix('subscriptions')->group(function() {
     Route::get('/delete/{id}','SubscriptionController@destroy');
 });
+
+/**
+ * Website Route
+ */
+Route::middleware(['auth'])->group(function () {
+    Route::prefix('services')->group(function() {
+        Route::get('/', function(){
+            return view('marketplacemodule::website.services.index');
+        })->name('services');
+    });
+});
+

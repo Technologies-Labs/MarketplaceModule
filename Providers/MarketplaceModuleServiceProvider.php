@@ -4,6 +4,7 @@ namespace Modules\MarketplaceModule\Providers;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Database\Eloquent\Factory;
+use Modules\MarketplaceModule\Services\ServicesService;
 
 class MarketplaceModuleServiceProvider extends ServiceProvider
 {
@@ -28,6 +29,10 @@ class MarketplaceModuleServiceProvider extends ServiceProvider
         $this->registerConfig();
         $this->registerViews();
         $this->loadMigrationsFrom(module_path($this->moduleName, 'Database/Migrations'));
+
+        $this->app->singleton('services', function ($app) {
+            return new ServicesService();
+        });
     }
 
     /**
