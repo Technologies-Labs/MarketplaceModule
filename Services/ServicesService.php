@@ -20,7 +20,7 @@ class ServicesService{
 
     public function getCurrentUserServices()
     {
-        return Auth::user()->subscriptions()->with('service')->get();
+        return Auth::user()->services()->get();
     }
 
 }
