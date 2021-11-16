@@ -12,7 +12,8 @@ class ShowServices extends Component
 
     public function render()
     {
-        $this->services= app('services')->getAllServices()->getData()->data;
+        $this->services = app('services')->getAllServices()->getData()->data;
+
         return view('marketplacemodule::livewire.services.show-services');
     }
 
@@ -23,6 +24,8 @@ class ShowServices extends Component
            abort(404);
         }
         $serviceInfo = $service->$method(Auth::user());
-        $this->emit('showMessage',$serviceInfo->getData()->message);
+
+        $this->emit('showMessage', ['icon' => $serviceInfo->getData()->icon, 'text' => $serviceInfo->getData()->message, 'title' => '']);
+
     }
 }

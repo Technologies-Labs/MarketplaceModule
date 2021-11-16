@@ -43,10 +43,11 @@ Route::prefix('subscriptions')->group(function() {
  * Website Route
  */
 Route::middleware(['auth'])->group(function () {
-    Route::prefix('services')->group(function() {
-        Route::get('/', function(){
+
+    Route::prefix('marketplace')->group(function() {
+        Route::get('/services', function(){
             return view('marketplacemodule::website.services.index');
-        })->name('services');
+        })->name('marketplace.services');
     });
 });
 

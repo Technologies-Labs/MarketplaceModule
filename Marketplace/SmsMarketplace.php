@@ -23,16 +23,19 @@ class SmsMarketplace
     public function subscripe(User $user)
     {
       $checkWalletBalane = (app('wallet')->getUserWallet($user)->withdraw($this->price));
+
       if(!$checkWalletBalane->getData()->success)
         {
             return response()->json([
                 'success'       => false,
+                'icon'          => 'error',
                 'message'       => 'Your Wallet Balance is not enough',
             ]);
         }
         $user->services()->attach($this->id,['start_date'=> now()]);
         return response()->json([
             'success'       => true,
+            'icon'          => 'success',
             'message'       => 'You Have Subscriped Successfully',
         ]);
     }
@@ -44,12 +47,14 @@ class SmsMarketplace
         {
             return response()->json([
                 'success'       => false,
+                'icon'          => 'error',
                 'message'       => 'You Have not Subscriped In This Service',
             ]);
         }
         $user->services()->detach($this->id);
         return response()->json([
             'success'       => true,
+            'icon'          => 'success',
             'message'       => 'You Have UnSubscriped Successfully',
         ]);
     }
@@ -61,6 +66,7 @@ class SmsMarketplace
         {
             return response()->json([
                 'success'       => false,
+                'icon'          => 'error',
                 'message'       => 'You Have not Subscriped In This Service',
             ]);
         }
@@ -69,12 +75,14 @@ class SmsMarketplace
         {
             return response()->json([
                 'success'       => false,
+                'icon'          => 'error',
                 'message'       => 'Your Wallet Balance is not enough',
             ]);
         }
         $user->services()->syncWithPivotValues($this->id,['start_date'=> now(),'status'=>'Subscriped']);
         return response()->json([
             'success'       => true,
+            'icon'          => 'success',
             'message'       => 'You Have Upgraded Successfully',
         ]);
     }
