@@ -1,4 +1,7 @@
 <div class="row">
+    @php
+        use Modules\MarketPlaceModule\Enum\MarketplaceEnum;
+    @endphp
     @foreach ($services as $service)
     <div class="col-lg-4 col-md-6 col-sm-6">
         <div class="course">
@@ -18,15 +21,22 @@
                     <!-- <span class="time"><i class="icofont-clock-time"></i> 20Hrs</span> -->
                 </div>
                 @if (isset($service->pivot->status))
-                    @if ($service->pivot->status === "Subscriped")
-                    <a class="main-btn" wire:click="handler('{{$service->key}}','unSubscripe')"  href="javascript:void(0)">Unsubscripe</a>
+                    @if ($service->pivot->status === MarketplaceEnum::SUBSCRIPTED &&  $service->type == MarketplaceEnum::FOREVER )
+                    <div style="display: flex; justify-content: center;">
+                        <a class="main-btn" wire:click="handler('{{$service->key}}','unSubscripe')"  href="javascript:void(0)">Un subscripe</a>
+                    </div>
+                    @endif
 
-                    @else
-                    <a class="main-btn" wire:click="handler('{{$service->key}}','upgrade')"  href="javascript:void(0)">{{$service->pivot->status}}</a>
+                    @if (($service->pivot->status === MarketplaceEnum::UPGRADED || $service->pivot->status === MarketplaceEnum::SUBSCRIPTED) && ( $service->type == MarketplaceEnum::PERIOD || $service->type == MarketplaceEnum::MEASURE )  )
+                    <div style="display: flex; justify-content: space-evenly;">
+                        <a class="main-btn" wire:click="handler('{{$service->key}}','upgrade')"  href="javascript:void(0)">Upgrade</a>
+                        <a class="main-btn" wire:click="handler('{{$service->key}}','unSubscripe')"  href="javascript:void(0)">Un subscripe</a>
+                    </div>
+
                     @endif
                 @else
                 <a href="javascript:void(0)" wire:click="handler('{{$service->key}}','subscripe')" title=""
-                    class="main-btn" data-ripple="">{{$service->status}}</a>
+                    class="main-btn" data-ripple="">Subscripe</a>
                 @endif
 
             </div>

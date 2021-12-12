@@ -13,7 +13,7 @@ class ShowServices extends Component
     public function render()
     {
         $this->services = app('services')->getAllServices()->getData()->data;
-
+        //dd($this->services);
         return view('marketplacemodule::livewire.services.show-services');
     }
 

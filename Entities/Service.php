@@ -6,6 +6,7 @@ use App\Models\User;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Modules\MarketPlaceModule\Enum\MarketplaceEnum;
 
 class Service extends Model
 {
@@ -23,7 +24,7 @@ class Service extends Model
     */
     public function users()
     {
-        return $this->belongsToMany(User::class , 'subscriptions' , 'user_id' , 'service_id')->withPivot('status');
+        return $this->belongsToMany(User::class , 'subscriptions')->withPivot('status')->wherePivot('status',MarketplaceEnum::SUBSCRIPTED);
     }
     /**
      * Get status attribute

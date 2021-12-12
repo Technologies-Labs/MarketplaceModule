@@ -7,9 +7,9 @@ use Modules\MarketplaceModule\Entities\Service;
 use Modules\MarketplaceModule\Entities\Subscription;
 use Modules\MarketPlaceModule\Enum\MarketplaceEnum;
 
-class SmsMarketplace
+class SuggestedUsersMarketplace
 {
-    private $key  = MarketplaceEnum::SMS_SERVICE;
+    private $key  = MarketplaceEnum::SUGGESTED_USERS;
     private $id;
     private $price;
 
@@ -32,7 +32,7 @@ class SmsMarketplace
                 'message'       => 'Your Wallet Balance is not enough',
             ]);
         }
-        $user->services()->attach($this->id,['status' => MarketplaceEnum::SUBSCRIPTED , 'start_date'=> now()]);
+        $user->services()->attach($this->id,['status' => MarketplaceEnum::SUBSCRIPTED ,'start_date'=> now()]);
         return response()->json([
             'success'       => true,
             'icon'          => 'success',
@@ -79,7 +79,7 @@ class SmsMarketplace
                 'message'       => 'Your Wallet Balance is not enough',
             ]);
         }
-        $user->services()->syncWithPivotValues($this->id,['start_date'=> now(),'status' => MarketplaceEnum::UPGRADED]);
+        $user->services()->syncWithPivotValues($this->id,['status' => MarketplaceEnum::UPGRADED ,'start_date'=> now()]);
         return response()->json([
             'success'       => true,
             'icon'          => 'success',

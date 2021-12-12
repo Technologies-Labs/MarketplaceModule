@@ -23,4 +23,9 @@ class ServicesService{
         return Auth::user()->services()->get();
     }
 
+    public function getUsersInServices($key)
+    {
+        return  Service::with('users')->where('key',$key)->first() ?? null;
+    }
+
 }
