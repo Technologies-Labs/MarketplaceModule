@@ -3,6 +3,7 @@
 namespace Modules\MarketplaceModule\Entities;
 
 use App\Models\User;
+use Database\Factories\SubscriptionsFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -31,8 +32,8 @@ class Subscription extends Model
 
 
 
-    // protected static function newFactory()
-    // {
-    //     return \Modules\MarketplaceModule\Database\factories\ServicesSubscriptionFactory::new();
-    // }
+    protected static function newFactory()
+    {
+        return SubscriptionsFactory::new();
+    }
 }
